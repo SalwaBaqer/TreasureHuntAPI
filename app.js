@@ -1,7 +1,12 @@
 const express = require("express");
 const db = require("./db/models");
 const cors = require("cors");
+
+//routes
 const thingRoutes = require("./api/things/routes");
+const userRoutes = require("./api/users/routes");
+
+const passport = require("passport");
 
 const app = express();
 
@@ -9,8 +14,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Passport Setup
+app.use(passport.initialize());
+
 // Routes
 app.use("/things", thingRoutes);
+app.use(userRoutes);
 
 // NOT FOUND PATH MIDDLEWARE
 app.use((req, res, next) => {
