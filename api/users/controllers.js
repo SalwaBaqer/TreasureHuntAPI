@@ -1,5 +1,5 @@
 //db
-const { User } = require("../../db/models");
+const { User, Thing } = require("../../db/models");
 
 const bcrypt = require("bcrypt");
 
@@ -23,7 +23,7 @@ exports.signup = async (req, res, next) => {
       username: newUser.username,
       exp: Date.now() + JWT_EXPIRATION_MS,
     };
-    console.log("signout");
+
     const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
     res.json({ token }); //inside {} aby ashouf something like this {token: jndmdl,dqw,}
   } catch (error) {
@@ -32,18 +32,13 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.signin = async (req, res, next) => {
-  try {
-    const user = req.body;
-    const payload = {
-      id: user.id,
-      username: user.username,
-      exp: Date.now() + JWT_EXPIRATION_MS,
-    };
-    const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
-    console.log("signin");
-    res.json({ token }); //inside {} aby ashouf something like this {token: jndmdl,dqw,}
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
+  const user = req.body;
+  const payload = {
+    id: user.id,
+    username: user.username,
+    exp: Date.now() + JWT_EXPIRATION_MS,
+  };
+  const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
+  console.log("signin");
+  res.json({ token }); //inside {} aby ashouf something like this {token: jndmdl,dqw,}
 };

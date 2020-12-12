@@ -1,10 +1,15 @@
 const express = require("express");
-const { signin, signup } = require("./controllers");
+const passport = require("passport");
+const { signin, signup, thingCreate } = require("./controllers");
 
 const router = express.Router();
 
 router.post("/signup", signup);
 
-router.post("/signin", signin);
+router.post(
+  "/signin",
+  passport.authenticate("local", { session: false }),
+  signin
+);
 
 module.exports = router;
