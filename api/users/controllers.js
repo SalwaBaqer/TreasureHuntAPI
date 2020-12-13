@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 //keys
 const { JWT_SECRET, JWT_EXPIRATION_MS } = require("../../config/keys");
 
-//Add new user
+//sign up
 exports.signup = async (req, res, next) => {
   try {
     const saltRounds = 10;
@@ -31,6 +31,7 @@ exports.signup = async (req, res, next) => {
   }
 };
 
+//sign in
 exports.signin = async (req, res, next) => {
   const user = req.body;
   const payload = {
@@ -42,3 +43,18 @@ exports.signin = async (req, res, next) => {
   console.log("signin");
   res.json({ token }); //inside {} aby ashouf something like this {token: jndmdl,dqw,}
 };
+
+//tresure
+// exports.treasureController = async (req, res, next) => {
+//   try {
+//     const treasureThings = await Thing.findAll({
+//       attributes: ["id", "name"],
+//       where: {
+//         isTreasure: true,
+//       },
+//     });
+//     res.json(treasureThings);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
